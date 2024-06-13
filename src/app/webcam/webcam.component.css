@@ -1,0 +1,11 @@
+video {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+}
+
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

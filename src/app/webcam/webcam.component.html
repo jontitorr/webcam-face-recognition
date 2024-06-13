@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <div *ngIf="!isWebcamActive" class="text-center">
+    <button class="btn btn-primary" (click)="toggleWebcam()">Start Webcam</button>
+  </div>
+  <div *ngIf="isWebcamActive" class="position-relative">
+    <div class="text-center mb-3">
+      <button class="btn btn-danger" (click)="toggleWebcam()">Stop Webcam</button>
+      <button class="btn btn-success" (click)="capture()">Capture</button>
+    </div>
+    <div class="d-flex justify-content-center">
+      <video #video class="border" autoplay></video>
+    </div>
+  </div>
+  <div class="text-center mt-3">
+    <input type="file" accept="image/*" (change)="handleFileInput($event)" class="btn btn-secondary">
+  </div>
+  <div class="container mt-3 mb-3">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-6 col-lg-4" *ngFor="let capturedImage of capturedImages; let i = index">
+        <div class="card mb-3">
+          <img [src]="capturedImage.image" alt="Captured" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">{{ capturedImage.timestamp | date:'shortDate' }} {{ capturedImage.timestamp |
+              date:'shortTime' }}</h5>
+            <ul>
+              <li *ngFor="let age of capturedImage.ages; let j = index">
+                Face {{ j + 1 }}: {{ age | number:'1.0-2' }} years old
+              </li>
+            </ul>
+            <p *ngIf="capturedImage.ages.length === 0">No faces detected</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <canvas #canvas [hidden]="true"></canvas>
+</div>
